@@ -1,5 +1,6 @@
 # The NEC V20 & V30 Microcode
 
+A decoding of the NEC V20/V30 microcode was recently made possible via the imaging work of [InfoSecDJ](https://infosec.exchange/@infosecdj):
 <img width="800" height="697" alt="The NEC V20 Die" src="images/v20_die_shot_01.jpg" />
 
 NEC used unified microcode for both the NEC V20 and V30, which differ only in their metal layer interconnects.
@@ -155,7 +156,7 @@ The next 9 bits are provisionally identified as follows:
 | 7 | D bit is valid |
 | 8 | set for all opcodes > 7F |
 
-The final five bytes appear to identify individual instructions within their class. 
+The final five bits appear to identify individual instructions within their class. 
 For non-microcoded instructions there are exactly 16 variants:
 
 |bits| meaning|
