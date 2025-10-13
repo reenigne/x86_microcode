@@ -1,3 +1,8 @@
+> [!NOTE]  
+> If you would like to assist with the decoding effort, there is a thread on the [VCF forums](https://forum.vcfed.org/index.php?threads/the-nec-v20-microcode-rom.1254770/) where the most recent updates occur.
+
+
+
 # The NEC V20 & V30 Microcode
 
 A decoding of the NEC V20/V30 microcode was recently made possible via the imaging work of [InfoSecDJ](https://infosec.exchange/@infosecdj):
