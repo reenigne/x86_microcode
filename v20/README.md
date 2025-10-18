@@ -8,6 +8,8 @@
 A decoding of the NEC V20/V30 microcode was recently made possible via the imaging work of [InfoSecDJ](https://infosec.exchange/@infosecdj):
 <img width="800" height="697" alt="The NEC V20 Die" src="images/v20_die_shot_01.jpg" />
 
+See the full die shot mosaic on [siliconprawn](https://siliconprawn.org/archive/doku.php?id=infosecdj:sharp:lh70108).
+
 NEC used unified microcode for both the NEC V20 and V30, which differ only in their metal layer interconnects.
 
 The only difference between the microcode for either version of CPU is in the microcode routine that handles hardware
