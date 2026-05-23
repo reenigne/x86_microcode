@@ -1,0 +1,541 @@
+<00> = TST_SEL_NONSS
+MOV ES/DS/FS/GS,rmw  POP ES/DS/FS/GS                      {-6E-}
+????1?????000000 000001001001101010  592 Y  NULL_SELECTOR     e
+????0?????000000 010000000000000000  000 n                   !e
+
+<01> = TST_SEL_CS
+JMP_FAR_PM  CALLGATE*  CALL_FAR_PM  TASK_FINAL_PM  INTGATE*/TRAPGATE*    {-6E-}
+????0?????000001 010000000000000000  000 n                   !e
+????1?????000001 000010111010000111  85d y  #GP/#TS(I0,E0)    e
+
+<02> = TST_SEL_RET
+RETF_HELPER                                               {-6E-}
+01??0?????000010 010000000000000000  000 n                           Bit l is 1 if the privilege check passed      SAME-LEVEL             RPL == CPL ?
+11??0?????000010 000000000000000000  000 n                                                                         SAME-LEVEL             RPL == CPL ?
+00??0?????000010 010001100001011010  686 Y  RETF_OUTER_LEV                                                         OUTER-PRIVILEGE-LEVEL  RPL > CPL
+10??0?????000010 000010111010000111  85d y  #GP/#TS(I0,E0)                                                                                RPL < CPL ?
+????1?????000010 000010111010000111  85d y  #GP/#TS(I0,E0)                                                                                RPL < CPL ?
+
+<03> = TST_SEL_RET_OL
+<02>                                                      {-6A-}
+?1??0?????000011 000000000000000000  000 n
+?0??0?????000011 000010111010000111  85d y  #GP/#TS(I0,E0)                       selector RPL != CPL (?)
+????1?????000011 000010111010000111  85d y  #GP/#TS(I0,E0)                       null selector
+
+<04> = TST_PORTIO_BIT
+PORTIO_PROTCHK*                                           {-6A-}
+?1??1?????000100 000000000000000000  000 n
+?0??1?????000100 000011011010000111  85b y  #GP(0)                               some kind of privilege level check?
+????0?????000100 000011011010000111  85b y  #GP(0)                               non-null (but does this test the lowest two bits?)
+
+<05> = TST_SEL_ARPL
+ARPL                                                      {-6A-}
+10????????000101 001000000000000000  000 n                           Bit m is 1 if b==0
+11????????000101 000000000000000000  000 n
+0?????????000101 000011001101011010  6b3 Y  ARPL_FAILED
+
+<06> = TST_SEL_GDT
+IRETd_V86  LTR                                            {-6A-}
+????1?????000110 000010111010000111  85d y  #GP/#TS(I0,E0)                       null selector
+????0??1??000110 000010111010000111  85d y  #GP/#TS(I0,E0)                       selector points to LDT
+????0??0??000110 000000000000000000  000 n
+
+<07> = TST_SEL_LLDT
+LLDT                                                      {-6A-}
+????1??0??000111 000010111011011010  6dd Y  LLDT_TEST_PASS                       null selector
+????0??1??000111 000010111010000111  85d y  #GP/#TS(I0,E0)                       selector points to LDT
+????1??1??000111 000010111011011111  edd n  == LLDT_TEST_PASS | #GP/#TS(I0,E0)   null selector, selector points to LDT?  (logicially impossible since "null selector" implies TI == 0)
+????0??0??000111 000000000000000000  000 n
+
+<08> = TST_SEL_LLVV
+LAR_LSL_VERRW                                             {-6A-}
+????1?????001000 000001110110000110  86e y  LAR_LSL_VERRW_NULL_SELECTOR          null selector
+????0?????001000 010000000000000000  000 n
+
+<09> = TST_SEL_MOREPR
+<17>  IRETd_HELPER5                                       {-6A-}
+?1??0?????001001 000000000000000000  000 n
+?0??0?????001001 000010111010000111  85d y  #GP/#TS(I0,E0)
+????1?????001001 000010111010000111  85d y  #GP/#TS(I0,E0)                       null selector
+
+<0A> = TST_SEL_TASKGT
+<22><13><16><21>                                          {-6A-}
+????0??0??001010 010000000000000000  000 n
+????0??1??001010 000010111010000111  85d y  #GP/#TS(I0,E0)                       selector points to LDT
+????1?????001010 000010111010000111  85d y  #GP/#TS(I0,E0)                       null selector
+
+<0B> = TST_SEL_TASKFI
+IRETd_HELPER5                                             {-6A-}
+????0?????001011 010000000000000000  000 n
+????1?????001011 000010100111111010  7e5 Y  NULL_SELECTOR2        RETURNs        null selector
+
+<0C> = TST_SEL_SS
+MOV SS,rmw  PM_LD_SS  PM_LSS                              {-6E-}
+?1??0?????001100 010000000000000000  000 n
+?0??0?????001100 010010111010000111  85d y  #GP/#TS(I0,E0)
+????1?????001100 000010111010000111  85d y  #GP/#TS(I0,E0)
+
+<0D> = TST_SEL_TR_TSF
+IRETd_HELPER5                                             {-6A-}
+????0??0??001101 000000000000000000  000 n
+????1??0??001101 000010100111111010  7e5 Y  NULL_SELECTOR2        RETURNs        null selector
+????0??1??001101 000010111010000111  85d y  #GP/#TS(I0,E0)                       selector points to LDT
+????1??1??001101 000010111111111111  ffd n  == NULL_SELECTOR2 | #GP/#TS(I0,E0)   null selector, selector points to LDT  (logicially impossible since "null selector" implies TI == 0)
+
+unused
+??????????001110 000000000000000000  000 n
+
+unused
+??????????001111 000000000000000000  000 n
+
+<10> = TST_DES_SIMPLE
+MOV ES/DS/FS/GS,rmw {-61-}  POP ES/DS/FS/GS {-61-}  MOV ES/DS/FS/GS,rmw {-61-}  PM_LES {-61-}  PM_LDS {-61-}  PM_LFS_LGS {-61-}  LSSFSGS_HELPER {-68-}  LOAD_SEGR_HELP {-68-}  <02> {-68-}  IRETd_HELPER5 {-61-}
+The presence of RETURN suggests that {-61-} is a CALL (P1CALL) - or is it returning from a CALL that happens afterwards?
+?????0????010000 000000000000000000  000 n                     system segment                                               - #GP(selector)
+?????11?0?010000 000000000000000000  000 n                     non-readable code segment                                    - #GP(selector)
+1????10???010000 000000000000000000  000 n                     data segment AND ((RPL > DPL) or (CPL > DPL))                - #GP(selector)
+1????1101?010000 000000000000000000  000 n                     non-conforming code segment AND ((RPL > DPL) or (CPL > DPL)) - #GP(selector)
+0???010???010000 000000001110000111  870 y  #NP(I0,E0)         data segment a=0                 segment not marked present  - #NP(selector)
+0???01101?010000 000000001110000111  870 y  #NP(I0,E0)         non-conforming code segment a=0  segment not marked present  - #NP(selector)
+????01111?010000 000000001110000111  870 y  #NP(I0,E0)         conforming code segment          segment not marked present  - #NP(selector)
+0???110???010000 000110101011101010  5d5 Y  PROT_TESTS_PASSED  data segment a=0                 segment marked present        RETURNs
+0???11101?010000 000110101011101010  5d5 Y  PROT_TESTS_PASSED  non-conforming code segment a=0  segment marked present        RETURNs
+????11111?010000 000110101011101010  5d5 Y  PROT_TESTS_PASSED  conforming code segment          segment marked present        RETURNs
+    +----------- e = Present bit (15)
+
+IF DS, ES, FS, or GS is loaded with non-NULL selector                                             https://www.felixcloutier.com/x86/mov
+THEN
+    IF segment selector index is outside descriptor table limits
+    OR segment is not a data or readable code segment
+    OR ((segment is a data or nonconforming code segment) AND ((RPL > DPL) or (CPL > DPL)))
+        THEN #GP(selector); FI;                                                                   000
+    IF segment not marked present
+        THEN #NP(selector);                                                                       870 SEGMENT_NOT_P1
+        ELSE
+            SegmentRegister := segment selector;                                                  5d5 PROT_TESTS_PASSED
+            SegmentRegister := segment descriptor; FI;
+FI;
+
+<11> = TST_DES_SS
+MOV SS,rmw  POP SS  PM_LSS  IRETd_HELPER5          {-67-}
+The presence of RETURN suggests that {-67-} is a CALL (P7CALL) - or is it returning from a CALL that happens afterwards?
+?????0????010001 000000000000000000  000 n                            system segment               - #GP(selector)
+?????11???010001 000000000000000000  000 n                            code segment                 - #GP(selector)
+?????10?0?010001 000000000000000000  000 n                            not writeable                - #GP(selector)
+1????10?1?010001 000000000000000000  000 n                            ((RPL > DPL) or (CPL > DPL)) - #GP(selector)
+00???10?1?010001 000000000000000000  000 n                            RPL != CPL                   - #GP(selector)  ?  i386.pdf also says "DPL in the AR byte must equal CPL else #GP(selector);"  https://www.felixcloutier.com/x86/mov  does not say this
+01??010?1?010001 000001010110000111  86a Y  #SS(I0,E0)                segment not present          - #SS(selector)
+01??110?1?010001 100110101011101010  5d5 Y  PROT_TESTS_PASSED    RETURNs
+ |  +----------- e = Present bit (15)
+ +-------------- b = RPL == CPL  ( or:  RPL == CPL && DPL == CPL ? )
+
+IF SS is loaded
+    THEN
+        IF segment selector is NULL
+            THEN #GP(0); FI;
+        IF segment selector index is outside descriptor table limits
+        OR segment selector's RPL =? CPL
+        OR segment is not a writable data segment
+        OR DPL =? CPL
+            THEN #GP(selector); FI;                                   000
+        IF segment not marked present
+            THEN #SS(selector);                                       86a #SS(I0,E0)
+            ELSE
+                SS := segment selector;                               5d5 PROT_TESTS_PASSED    RETURNs
+                SS := segment descriptor; FI;
+FI;
+
+<12> = TST_DES_JMP
+JMP_FAR_PM                                                {-67-}
+?????0????010010 000011001101101010  5b3 Y  JUMP_FAR_PM_GATE  system segment
+?????10???010010 000000000000000000  000 n                    data segments
+1????110??010010 000000000000000000  000 n                    priv check failed
+00???110??010010 000000000000000000  000 n                    priv check failed
+011??110??010010 000000000000000000  000 n                    priv check failed
+010?0110??010010 000000001110000111  870 y  #NP(I0,E0)        non-conforming code segment - not present
+0???0111??010010 000000001110000111  870 y  #NP(I0,E0)        conforming code segment - not present
+010?1110??010010 000110101011101010  5d5 Y  PROT_TESTS_PASSED non-conforming code segment       RETURNs
+0???1111??010010 000110101011101010  5d5 Y  PROT_TESTS_PASSED conforming code segment           RETURNs
+1????111??010010 000000000000000000  000 n                    conforming code segment - priv check failed?
+
+<13> = TST_DES_JGATE
+JUMP_FAR_PM_GATE                                          {-69-}
+0????0?000010011 000000000000000000  000 n                       0/8 Invalid
+0????00010010011 000000000000000000  000 n                       2   LDT
+0????0?011010011 000000000000000000  000 n                       3/B Busy 80286/80386 TSS
+0????0?11?010011 000000000000000000  000 n                       6/7/E/F   80286/80386 trap/interrupt gate
+0????01010010011 000000000000000000  000 n                       A   Invalid
+0????01101010011 000000000000000000  000 n                       D   Invalid
+0????1????010011 000000000000000000  000 n                       needs to be system segment
+1?????????010011 000000000000000000  000 n                       priv check failed
+0???100100010011 000010111101101010  5bd Y  CALLGATE286          4   80286 call gate
+0???101100010011 000001111101101010  5be y  CALLGATE386          C   80386 call gate
+0???100101010011 000000111000111010  71c y  TASKGATE             5   80286/80386 task gate
+0???10?001010011 000011000010111010  743 Y  AVAIL_TSS_PR         1/9 Available 80286/80386 TSS
+0???00?001010011 000000010111111011  7e8 Y  AVAIL_TSS_NP         1/9 Available 80286/80386 TSS
+0???00?100010011 000000001110000111  870 y  #NP(I0,E0)           4/C 80286/80386 call gate
+0???000101010011 000000001110000111  870 y  #NP(I0,E0)           5   80286/80386 task gate
+
+<14> = TST_DES_JGDEST
+<12>  IRETd_HELPER5                                       {-67-}
+?????0????010100 000000000000000000  000 n                         system segment
+?????10???010100 000000000000000000  000 n                         data segment
+1????11???010100 000000000000000000  000 n                         priv check failed?
+00???110??010100 000000000000000000  000 n                         priv check failed
+01??0110??010100 000000001110000111  870 y  #NP(I0,E0)             not conforming, not present
+0???0111??010100 000000001110000111  870 y  #NP(I0,E0)         conforming, not present
+01??1110??010100 000101011011101010  5da Y  PROT_TESTS_PASSED2     not conforming     RETURNs
+0???1111??010100 000101011011101010  5da Y  PROT_TESTS_PASSED2     conforming         RETURNs
+
+<15> = TST_DES_CALL
+CALL_FAR_HELP                                             {-67-}
+?????0????010101 000000011101101010  5b8 Y  CALL_FAR_PM_GATE  system segment
+?????10???010101 000000000000000000  000 n                    data segment
+1????11???010101 000000000000000000  000 n                    priv check failed?
+00???110??010101 000000000000000000  000 n                    non-conforming code segment priv check failed?
+011??110??010101 000000000000000000  000 n                    non-conforming code segment priv check failed?
+010?0110??010101 000000001110000111  870 y  #NP(I0,E0)        non-conforming, absent
+0???0111??010101 000000001110000111  870 y  #NP(I0,E0)        conforming, absent
+010?1110??010101 000110101011101010  5d5 Y  PROT_TESTS_PASSED non-conforming         RETURNs
+0???1111??010101 000110101011101010  5d5 Y  PROT_TESTS_PASSED conforming             RETURNs
+
+<16> = TST_DES_CGATE
+<15>                                                      {-69-}
+?????1????010110 000000000000000000  000 n                          only system segments allowed
+1????0????010110 000000000000000000  000 n                          priv check failed
+0????0?000010110 000000000000000000  000 n                  0/8     Invalid
+0????00010010110 000000000000000000  000 n                  2       LDT
+0????0?11?010110 000000000000000000  000 n                  6/7/E/F 80286/80386 trap/interrupt gate
+0????0?011010110 000000000000000000  000 n                  3/B     Busy 80286 TSS
+0????01010010110 000000000000000000  000 n                  A       Invalid
+0????01101010110 000000000000000000  000 n                  D       Invalid
+0???100100010110 000010111101101010  5bd Y  CALLGATE286     4       80286 call gate
+0???101100010110 000001111101101010  5be y  CALLGATE386     C       80386 call gate
+0???100101010110 000000111000111010  71c y  TASKGATE        5       80286/80386 task gate
+0???10?001010110 000011000010111010  743 Y  AVAIL_TSS_PR    1/9     Available 80286/80386 TSS present
+0???00?001010110 000000010111111011  7e8 Y  AVAIL_TSS_NP    1/9     Available 80286/80386 TSS not present
+0???00?100010110 000000001110000111  870 y  #NP(I0,E0)      4/C     80286/80386 call gate not present
+0???000101010110 000000001110000111  870 y  #NP(I0,E0)      5       80286/80386 task gate not present
+
+<17> = TST_DES_CGDEST
+<15>  INT_HELPER                                          {-67-}
+?????0????010111 000000000000000000  000 n                           system segment
+?????10???010111 000000000000000000  000 n                           data segment
+1????11???010111 000000000000000000  000 n                           priv check failed?
+0???011???010111 000000001110000111  870 y  #NP(I0,E0)               absent
+01??1110??010111 000101011011101010  5da Y  PROT_TESTS_PASSED2       non-conforming, passed check     RETURNs
+0???1111??010111 000101011011101010  5da Y  PROT_TESTS_PASSED2       conforming, no check needed      RETURNs
+00??1110??010111 110111011111101010  5fb Y  MORE_PRIVILEGE           non-conforming, check failed?
+
+<18> = TST_DES_RETF
+RETF_PM                                                   {-63-}
+?????0????011000 000000000000000000  000 n                    system segment
+?????10???011000 000000000000000000  000 n                    data segment
+1????11???011000 000000000000000000  000 n                    priv check failed?
+00???110??011000 000000000000000000  000 n                    non-conforming priv check failed?
+00??0111??011000 000000001110000111  870 y  #NP(I0,E0)        absent conforming
+01??011???011000 000000001110000111  870 y  #NP(I0,E0)        absent non-conforming but priv check passed?
+00??1111??011000 000110101011101010  5d5 Y  PROT_TESTS_PASSED present conforming                                 RETURNs
+01??111???011000 000110101011101010  5d5 Y  PROT_TESTS_PASSED present non-conforming but priv check passed?      RETURNs
+
+<19> = TST_DES_RTOLSS
+RETF_OUTER_LEV                                            {-63-}
+?????0????011001 000000000000000000  000 n                    system segment
+?????11???011001 000000000000000000  000 n                    code segment
+1????10???011001 000000000000000000  000 n                    priv check failed?
+00???10???011001 000000000000000000  000 n                    priv check failed?
+01???10?0?011001 000000000000000000  000 n                    data segment not writeable?
+01??010?1?011001 000001010110000111  86a Y  #SS(I0,E0)        not present
+01??110?1?011001 000110101011101010  5d5 Y  PROT_TESTS_PASSED       RETURNs
+
+<1A> = TST_DES_LDTTSK
+IRETd_HELPER5                                             {-61-}
+????000010011010 000010111010000111  85d y  #GP/#TS(I0,E0)                    LDT absent
+????100010011010 000010101011101010  5d5 Y  PROT_TESTS_PASSED       RETURNs   LDT present
+?????0000?011010 000000000000000000  000 n                                    0-1
+?????00011011010 000000000000000000  000 n                                    3
+?????001??011010 000000000000000000  000 n                                    4-7
+?????01???011010 000000000000000000  000 n                                    8-f
+?????1????011010 000000000000000000  000 n                                    user segment
+
+<1B> = TST_DES_LDT                                                                                   same as TST_LDT1 except for destination when LDT is absent
+LLDT  IRETd_HELPER5                                       {-61-}
+????000010011011 000000001110000111  870 y  #NP(I0,E0)                        LDT absent
+????100010011011 000010101011101010  5d5 Y  PROT_TESTS_PASSED       RETURNs   LDT present
+?????0000?011011 000000000000000000  000 n                                    system segment 0-1
+?????00011011011 000000000000000000  000 n                                    system segment 3
+?????001??011011 000000000000000000  000 n                                    system segment 4-7
+?????01???011011 000000000000000000  000 n                                    system segment 8-f
+?????1????011011 000000000000000000  000 n                                    user segment
+
+<1C> = TST_DES_MOREPR
+<17>                                                      {-63-}
+01??010?1?011100 000001010110000111  86a Y  #SS(I0,E0)
+01??110?1?011100 000101011011101010  5da Y  PROT_TESTS_PASSED2  RETURNs
+?????0????011100 000000000000000000  000 n                system segment
+?????11???011100 000000000000000000  000 n                code segement
+?????10?0?011100 000000000000000000  000 n                not writeable
+1????10?1?011100 000000000000000000  000 n                unpriv?
+00???10?1?011100 000000000000000000  000 n                unpriv?
+
+<1D> = TST_DES_TSSTSG
+<13><16><21><22>                                          {-61-}
+?????0?000011101 000000000000000000  000 n                     0, 8
+????00?001011101 000000001110000111  870 y  #NP(I0,E0)         1, 9 Available 80286/80386 TSS absent
+????10?001011101 000011111000111010  71f Y  AVAIL_TSS          1, 9 Available 80286/80386 TSS present
+?????0?01?011101 000000000000000000  000 n                     2-3, a-b
+?????0?1??011101 000000000000000000  000 n                     4-7, c-f
+?????1????011101 000000000000000000  000 n                     user segment
+
+<1E> = TST_DES_TSSTSR
+IRETd_V86                                                 {-61-}
+?????0?00?011110 000000000000000000  000 n                              0-1, 8-9
+?????0?010011110 000000000000000000  000 n                              2/a
+????00?011011110 000000001110000111  870 y  #NP(I0,E0)                  3/b Busy 80286/80386 TSS absent
+????10?011011110 000011001011101010  5d3 Y  PRESENT_TSS   RETURNs       3/b Busy 80286/80386 TSS present
+?????0?1??011110 000000000000000000  000 n                              4-7, c-f
+?????1????011110 000000000000000000  000 n                              user segment
+
+<1F> = TST_DES_TSSLTR
+LTR                                                       {-61-}
+????00?001011111 000000001110000111  870 y  #NP(I0,E0)                  1/9 Available 80286/80386 TSS
+????10?001011111 000011001011101010  5d3 Y  PRESENT_TSS   RETURNs       1/9 Available 80286/80386 TSS
+?????1????011111 000000000000000000  000 n                              user segment
+?????0?1??011111 000000000000000000  000 n                              4-7, c-f
+?????0?01?011111 000000000000000000  000 n                              2-3, a-b
+?????0?000011111 000000000000000000  000 n                              0/8
+
+<20> = TST_DES_GRANUL
+LSL_HELPER - always jumps                                 {-6F-}
+????1?????100000 000010101111011010  6f5 y LSL_GRANULARITY_COARSE
+????0?????100000 000010111111011010  6fd y LSL_GRANULARITY_FINE
+    +----------- e = 23 G = If clear, the limit is in units of bytes, with a maximum of 2^20 bytes. If set, the limit is in units of 4096-byte pages, for a maximum of 2^32 bytes.
+
+<21> = TST_DES_INT_SW
+INT_HELPER                                                {-6F-}                                          used for CALL_FAR_PM_GATE and INTERRUPT_X (hardware IRQ, NMI, faults)
+?????1????100001 000000000000000000  000 n                     user segment
+1????0????100001 000000000000000000  000 n                     priv check failed
+0????0?000100001 000000000000000000  000 n                     0/8     Invalid
+0????0?0?1100001 000000000000000000  000 n                     1/3/9/B Available/Busy 80286/80386 TSS
+0????00010100001 000000000000000000  000 n                     2       LDT
+0????0?100100001 000000000000000000  000 n                     4/C     80286/80386 call gate
+0????01010100001 000000000000000000  000 n                     A       Invalid
+0????01101100001 000000000000000000  000 n                     D       Invalid
+0???000101100001 000010001110000111  871 y  #NP(I1,E0)         5 80286/80386 task gate
+0???100101100001 000000111000111010  71c y  TASKGATE           5 80286/80386 task gate
+0???000110100001 000010001110000111  871 y  #NP(I1,E0)         6 80286  interrupt gate
+0???100110100001 000001000011000110  8c2 Y  INTGATE286         6 80286  interrupt gate
+0???000111100001 000010001110000111  871 y  #NP(I1,E0)         7 80286  trap gate
+0???100111100001 000011000011000110  8c3 y  TRAPGATE286        7 80286  trap gate
+0???001110100001 000010001110000111  871 y  #NP(I1,E0)         E 80386  interrupt gate
+0???101110100001 000011010011000110  8cb Y  INTGATE386         E 80386  interrupt gate
+0???001111100001 000010001110000111  871 y  #NP(I1,E0)         F 80386  trap gate
+0???101111100001 000000110011000110  8cc y  TRAPGATE386        F 80386  trap gate
+
+<22> = TST_DES_INT_HW
+INT_HELPER                                                {-6F-}                                          used for JMP_FAR_PM_GATE
+?????1????100010 000000000000000000  000 n                      user segment
+?????0?000100010 000000000000000000  000 n                      0/8     Invalid
+?????0?0?1100010 000000000000000000  000 n                      1/3/9/B Available/Busy 80286/80386 TSS
+?????00010100010 000000000000000000  000 n                      2       LDT
+?????0?100100010 000000000000000000  000 n                      4/C     80286/80386 call gate
+?????01010100010 000000000000000000  000 n                      A       Invalid
+?????01101100010 000000000000000000  000 n                      D       Invalid
+????000101100010 000010001110000111  871 y  #NP(I1,E0)          5 80286/80386 task gate
+????100101100010 000000111000111010  71c y  TASKGATE            5 80286/80386 task gate
+????000110100010 000010001110000111  871 y  #NP(I1,E0)          6 80286 interrupt gate
+????100110100010 000001000011000110  8c2 Y  INTGATE286          6 80286 interrupt gate
+????000111100010 000010001110000111  871 y  #NP(I1,E0)          7 80286 trap gate
+????100111100010 000011000011000110  8c3 y  TRAPGATE286         7 80286 trap gate
+????001110100010 000010001110000111  871 y  #NP(I1,E0)          E 80386 interrupt gate
+????101110100010 000011010011000110  8cb Y  INTGATE386          E 80386 interrupt gate
+????001111100010 000010001110000111  871 y  #NP(I1,E0)          F 80386 trap gate
+????101111100010 000000110011000110  8cc y  TRAPGATE386         F 80386 trap gate
+
+unused
+??????????100011 000000000000000000  000 n
+
+<24> = TST_ACCESS_VIO                                                            This comes from the small PLA.
+ACCESS_VIOLATI                                            {-6B-}
+?????00000100100 000011011010000110  85b y  #GP(0)           0 DES_ES
+?????00001100100 000011011010000110  85b y  #GP(0)           1 DES_CS
+?????00010100100 000001000110000110  862 Y  #SS(0)           2 DES_SS
+?????00011100100 000011011010000110  85b y  #GP(0)           3 DES_DS
+?????00100100100 000011011010000110  85b y  #GP(0)           4 DES_FS
+?????00101100100 000011011010000110  85b y  #GP(0)           5 DES_GS
+?????00110100100 000001111010000110  85e y  #GP/#TS(SIGMA)   6 DESLDT
+?????00111100100 000001111010000110  85e y  #GP/#TS(SIGMA)   7 DESGDT
+?????01000100100 000001100110000110  866 y  #GP(SIGMA | 2)   8 DESIDT
+?????01001100100 000001111010000110  85e y  #GP/#TS(SIGMA)   9 DES_TR
+?????0101?100100 000000000000000000  000 n                  10-11
+?????011??100100 000000000000000000  000 n                  12-15
+?????10???100100 000000000000000000  000 n                  16-23
+?????11000100100 000011000110000110  863 y  #SS(SIGMA)      24 DESCSW
+?????11001100100 000011011010000110  85b y  #GP(0)          25 DESCOD
+?????11010100100 000001000110000110  862 Y  #SS(0)          26 DESSTK
+?????11011100100 000000000000000000  000 n                  27
+?????111??100100 000000000000000000  000 n                  28-31
+
+<25> = TST_DES_RTOLOS
+<02>  RETF_HELPER_DS  RETF_HELPER_FS  RETF_HELPER_GS      {-6F-}
+0?????????100101 000000000000000000  000 n                             valid for outer level      To be valid, the register setting must satisfy the following properties:
+11????????100101 000000000000000000  000 n                             valid for outer level        Selector index must be within descriptor table limits;
+10????11??100101 000000000000000000  000 n                             valid for outer level        Descriptor AR byte must indicate data or readable code segment;            conforming code segment
+10????0???100101 000000010101011010  6a8 Y  ZERO_SLCTR_AR     RETURNs  not valid for outer level    IF segment is data or non-conforming code, THEN                            data segment
+10????10??100101 000000010101011010  6a8 Y  ZERO_SLCTR_AR     RETURNs  not valid for outer level      DPL must be ò CPL, or DPL must be ò RPL;                                 non-conforming code segment
+
+<26> = TST_SEL_LES
+PM_LES                                                    {-6E-}
+????0?????100110 010000000000000000  000 n
+????1?????100110 000001001001101010  592 Y  NULL_SELECTOR   RETURN
+
+<27> = TST_SEL_LDS
+PM_LDS                                                    {-6E-}
+????0?????100111 010000000000000000  000 n
+????1?????100111 000001001001101010  592 Y  NULL_SELECTOR   RETURN
+
+<28> = TST_SEL_LFSLGS
+PM_LFS_LGS                                                {-6E-}
+????0?????101000 010000000000000000  000 n
+????1?????101000 000001001001101010  592 Y  NULL_SELECTOR   RETURN
+
+unused
+??????????101001 000000000000000000  000 n
+
+<2A> = JMP_GFAULT_INT
+INT_HELPER - unconditional jump to #GP(I1,E0)             {-6B-}
+??????????101010 000010100110000111  865 y  #GP(I1,E0)
+
+<2B> = READ_RPL
+PORTIO_PROTCHK*  ARPL  IRETd_HELPER4 - never jumps?       {-6B-}/{-6A-}/{-6F-}
+??????????101011 010000000000000000  000 n
+
+<2C> = WRITE_RPL
+<17> - never jumps?                                       {-6B-}          output the privilege level in the low two bits of PROTUN?
+??????????101100 001000000000000000  000 n
+
+<2D> = SET_RPL_TO_CPL
+JUMP_FAR_PM  CALL_FAR_PM  TRAP_INT_GATE - never jumps?    {-6B-}          set CS.Selector.RPL = CPL?
+??????????101101 101000000000000000  000 n
+
+<2E> = COPY_STACK_DPL
+<17>  IRETd_V86  <02>  IRETd_HELPER5  EXCEPTION  LOADALL386  DR_ICEBP_HELP2 - never jumps?    {-6B-}/{-6F-}
+??????????101110 100100000000000000  000 n
+
+<2F> = SET_FAULT
+MOV CR0,rd  <12>  <15>  LOAD_SEG_HELP2  CALL_FAR_HELP  small pla 010100 01 ? 0011011  unused? - never jumps?   {-6B-}       Set a "fault" flag?
+??????????101111 000000000000000001  000 n
+
+<30> = TST_DES_LAR
+LAR  LAR_LSL_VERRW*                                       {-61-}/{-68-}
+0????0?000110000 000000000000000000  000 n                       0/8 Invalid
+0????0?0?1110000 000001011000111010  71a Y  LAR_VERRW_SUCCEEDED  1/9 Available 80286/80386 TSS  3/B Busy 80286/80386 TSS
+0????00010110000 000001011000111010  71a Y  LAR_VERRW_SUCCEEDED  2   LDT
+0????0?100110000 000001011000111010  71a Y  LAR_VERRW_SUCCEEDED  4/C 80286/80386 call gate
+0????00101110000 000001011000111010  71a Y  LAR_VERRW_SUCCEEDED  5   80286/80386 task gate
+0????0?11?110000 000000000000000000  000 n                       6/7/E/F 80286/80386 trap/interrupt gate       i386.pdf says this is valid but https://www.felixcloutier.com/x86/lar agrees with microcode
+0????01010110000 000000000000000000  000 n                       A   Invalid
+0????01101110000 000000000000000000  000 n                       D   Invalid
+0????1????110000 000001011000111010  71a Y  LAR_VERRW_SUCCEEDED  All code/data segments are valid with a=0
+1????0????110000 000000000000000000  000 n                       with a=1 system segements are not valid
+1????10???110000 000000000000000000  000 n                       with a=1 data segments are not valid
+1????110??110000 000000000000000000  000 n                       with a=1 non-conforming code segments are not valid
+1????111??110000 000001011000111010  71a Y  LAR_VERRW_SUCCEEDED  with a=1 only code segments with conforming bit set are valid
+
+<31> = TST_DES_LSL
+LSL                                                       {-61-}
+0????0?000110001 000000000000000000  000 n              0/8     Invalid               i386.pdf says 8 is valid but https://www.felixcloutier.com/x86/lsl agrees with microcode
+0????0?0?1110001 000001110111011010  6ee Y  LSL_HELPER  1/3/9/B Available/Busy 80286/80386 TSS
+0????00010110001 000001110111011010  6ee Y  LSL_HELPER  2       LDT
+0????0?100110001 000000000000000000  000 n              4/C     80286 call gate
+0????00101110001 000000000000000000  000 n              5       80286/80386 task gate
+0????0?11?110001 000000000000000000  000 n              6/7/E/F 80286/80386 trap/interrupt gate
+0????01010110001 000000000000000000  000 n              A       Invalid
+0????01101110001 000000000000000000  000 n              D       Invalid
+0????1????110001 000001110111011010  6ee Y  LSL_HELPER  All code/data segments are valid with a=0
+1????0????110001 000000000000000000  000 n              with a=1 system segments are not valid
+1????10???110001 000000000000000000  000 n              with a=1 data segments are not valid
+1????110??110001 000000000000000000  000 n              with a=1 non-conforming code segments are not valid
+1????111??110001 000001110111011010  6ee Y  LSL_HELPER  with a=1 only code segments with conforming bit set are valid
+
+<32> = TST_DES_VERR
+VERR                                                      {-61-}
+?????0????110010 000000000000000000  000 n                       system segments fail
+?????11?0?110010 000000000000000000  000 n                       code segment, not readable
+0????10???110010 000001011000111010  71a Y  LAR_VERRW_SUCCEEDED  data segments are always readable, DPL/CPL check ok
+1????10???110010 000000000000000000  000 n                       data segments are always readable, DPL/CPL check failed
+0????1101?110010 000001011000111010  71a Y  LAR_VERRW_SUCCEEDED  readable non-conforming code segment, DPL/CPL check ok
+1????1101?110010 000000000000000000  000 n                       readable non-conforming code segment, DPL/CPL check failed
+?????1111?110010 000001011000111010  71a Y  LAR_VERRW_SUCCEEDED  conforming code segment, readable
+
+<33> = TST_DES_VERW
+VERW                                                      {-61-}
+?????0????110011 000000000000000000  000 n                        system segments always fail
+?????11???110011 000000000000000000  000 n                        code segments are never writeable
+1????10???110011 000000000000000000  000 n                        CPL/DPL check failed
+0????10?0?110011 000000000000000000  000 n                        data segment not writeable
+0????10?1?110011 000001011000111010  71a Y  LAR_VERRW_SUCCEEDED   data segment writeable
+
+<34> = FPU_WAIT
+WAIT                                                      {-6B-}
+??????1?1?110100 000001101100101010  536 Y  COPROCESSOR_NOT_AVAILABLE_EXCEPTION  MP && TS
+??????0?1?110100 000000000000000000  000 n                                       MP && !TS
+????????0?110100 000000000000000000  000 n                                       !MP
+
+unused
+??????????110101 000000000000000000  000 n
+
+unused
+??????????110110 000000000000000000  000 n
+
+unused
+??????????110111 000000000000000000  000 n
+
+<38> = FPU_OTHER   (FP instructions that don't do loads or stores, that do big stores, or that load single words
+FENI/FDISI/FCLEX/FINIT/FSETPM/FRSTPM  FSTSW AX/FNSTDW/FNSTSG  FSTENV m  FSAVE m  FLDENV m  FRSTOR m  various fp instructions  FIADD/FIMUL/FICOM/FICOMP/FISUB/FISUBR/FIDIV/FIDIVR/FILD mw  FIST/FISTP mw  {-6B-}
+??????00??111000 000000000000000000  000 n                                       !TS && !EM
+??????01??111000 000001101100101010  536 Y  COPROCESSOR_NOT_AVAILABLE_EXCEPTION  !TS && EM
+??????1???111000 000001101100101010  536 Y  COPROCESSOR_NOT_AVAILABLE_EXCEPTION  TS
+
+<39> = FPU_LOAD_3264  (FP instructions that load 32-bit or 64-bit quantities from RAM)
+FADD/FMUL/FCOM/FCOMP/FSUB/FSUBR/FDIV/FDIVR/FIADD/FIMUL/FICOM/FICOMP/FISUB/FISUBR/FIDIV/FIDIVR/FLD/FILD md  FLD/FILD/FADD/FMUL/FCOM/FCOMP/FSUBR/FSUB/FDIVR/FDIV mq - always jumps  {-6B-}
+?????000??111001 000000010111001010  4e8 y  FPU_LD3264_287                       !TS && !EM && !ET
+?????100??111001 000000111000101010  51c Y  FPU_LD3264_387                       !TS && !EM && ET
+??????01??111001 000001101100101010  536 Y  COPROCESSOR_NOT_AVAILABLE_EXCEPTION  !TS && EM
+??????1???111001 000001101100101010  536 Y  COPROCESSOR_NOT_AVAILABLE_EXCEPTION  TS
+
+unused
+??????????111010 000000000000000000  000 n
+
+<3B> = FPU_LOAD_80     (FP instructions that load 80-bit quantities from RAM)
+FBLD/FLD mt - always jumps                                {-6B-}
+?????000??111011 000011100111001010  4e7 Y  FPU_LD80_287                         !TS && !EM && !ET
+?????100??111011 000001110111001010  4ee Y  FPU_LD80_387                         !TS && !EM && ET
+??????01??111011 000001101100101010  536 Y  COPROCESSOR_NOT_AVAILABLE_EXCEPTION  !TS && EM
+??????1???111011 000001101100101010  536 Y  COPROCESSOR_NOT_AVAILABLE_EXCEPTION  TS
+
+<3C> = FPU_STORE_3264 (FP instructions that store 32-bit or 64-bit quantities to RAM)
+FST/FSTP/FIST/FISTP md  FST/FSTP/FISTP mq - always jumps  {-6B-}
+?????000??111100 000001110010101010  54e y  FPU_ST3264_287                       !TS && !EM && !ET
+?????100??111100 000010101010101010  555 y  FPU_ST3264_387                       !TS && !EM && ET
+??????01??111100 000001101100101010  536 Y  COPROCESSOR_NOT_AVAILABLE_EXCEPTION  !TS && EM
+??????1???111100 000001101100101010  536 Y  COPROCESSOR_NOT_AVAILABLE_EXCEPTION  TS
+
+<3D> = FPU_STORE_80    (FP instructions that store 80-bit quantities to RAM)
+FBSTP/FSTP mt                                             {-6B-}
+?????000??111101 000010110010101010  54d Y  FPU_ST80_287                         !TS && !EM && !ET
+?????100??111101 000000101010101010  554 Y  FPU_ST80_387                         !TS && !EM && ET
+??????01??111101 000001101100101010  536 Y  COPROCESSOR_NOT_AVAILABLE_EXCEPTION  !TS && EM
+??????1???111101 000001101100101010  536 Y  COPROCESSOR_NOT_AVAILABLE_EXCEPTION  TS
+
+<3E> = FPU_FSAVE
+FSAVE m  FSAVE_HELPER                                     {-6B-}
+?????1????111110 000010010010001010  449 Y  FSAVE_387                            ET
+?????0????111110 000010001010001010  451 Y  FSAVE_287                            !ET
+
+<3F> = FPU_FRSTOR
+FRSTOR  FRSTOR_HELPER                                     {-6B-}
+?????1????111111 000010101101001010  4b5 Y  FRSTOR_387                           ET
+?????0????111111 000011011101001010  4bb Y  FRSTOR_287                           !ET
+
+
