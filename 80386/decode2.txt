@@ -1,0 +1,2559 @@
+00:                            alu rm,r  excluding CMP
+001D
+001D
+001D
+001D
+001D
+001D
+001D
+001D
+
+01:
+0
+0
+0
+0
+0
+0
+0
+0
+
+02:
+904A
+904A
+904A
+904A
+904A
+904A
+904A
+904A
+
+03:
+0
+0
+0
+0
+0
+0
+0
+0
+
+04:
+001D                           alu r,rm  excluding CMP
+001D
+001D
+001D
+001D
+001D
+001D
+001D
+
+05:
+0
+0
+0
+0
+0
+0
+0
+0
+
+06:
+1027
+1027
+1027
+1027
+1027
+1027
+1027
+1027
+
+07:
+0
+0
+0
+0
+0
+0
+0
+0
+
+08:
+0                              unused?
+0
+0
+0
+0
+0
+0
+0
+
+09:
+0
+0
+0
+0
+0
+0
+0
+0
+
+0A:
+0
+0
+0
+0
+0
+0
+0
+0
+
+0B:
+0
+0
+0
+0
+0
+0
+0
+0
+
+0C:
+0                              IMUL rm,rmv
+0
+0
+0
+0
+0
+0
+0
+
+0D:
+01B3
+01B3
+01B3
+01B3
+01B3
+01B3
+01B3
+01B3
+
+0E:
+0
+0
+0
+0
+0
+0
+0
+0
+
+0F:
+11BD
+11BD
+11BD
+11BD
+11BD
+11BD
+11BD
+11BD
+
+10:
+001F                           CMP rm,r
+001F
+001F
+001F
+001F
+001F
+001F
+001F
+
+11:
+0
+0
+0
+0
+0
+0
+0
+0
+
+12:
+1035
+1035
+1035
+1035
+1035
+1035
+1035
+1035
+
+13:
+0
+0
+0
+0
+0
+0
+0
+0
+
+14:
+001F                           CMP r,rm
+001F
+001F
+001F
+001F
+001F
+001F
+001F
+
+15:
+0
+0
+0
+0
+0
+0
+0
+0
+
+16:
+102C
+102C
+102C
+102C
+102C
+102C
+102C
+102C
+
+17:
+0
+0
+0
+0
+0
+0
+0
+0
+
+18:                            alu rm,i
+0023
+0023
+0023
+0023
+0023
+0023
+0023
+0025
+
+19:
+0
+0
+0
+0
+0
+0
+0
+0
+
+1A:
+9039
+9039
+9039
+9039
+9039
+9039
+9039
+1031
+
+1B:
+0
+0
+0
+0
+0
+0
+0
+0
+
+1C:
+001F                           TEST rm,r
+001F
+001F
+001F
+001F
+001F
+001F
+001F
+
+1D:
+0
+0
+0
+0
+0
+0
+0
+0
+
+1E:
+1035
+1035
+1035
+1035
+1035
+1035
+1035
+1035
+
+1F:
+0
+0
+0
+0
+0
+0
+0
+0
+
+20:
+00B6                           XCHG rm,r
+00B6
+00B6
+00B6
+00B6
+00B6
+00B6
+00B6
+
+21:
+0
+0
+0
+0
+0
+0
+0
+0
+
+22:
+90B1
+90B1
+90B1
+90B1
+90B1
+90B1
+90B1
+90B1
+
+23:
+0
+0
+0
+0
+0
+0
+0
+0
+
+24:
+01C4                           IMUL rv,rmv,i
+01C4
+01C4
+01C4
+01C4
+01C4
+01C4
+01C4
+
+25:
+0
+0
+0
+0
+0
+0
+0
+0
+
+26:
+11C1
+11C1
+11C1
+11C1
+11C1
+11C1
+11C1
+11C1
+
+27:
+0
+0
+0
+0
+0
+0
+0
+0
+
+28:
+0003                           MOV rm,r
+0003
+0003
+0003
+0003
+0003
+0003
+0003
+
+29:
+0003
+0003
+0003
+0003
+0003
+0003
+0003
+0003
+
+2A:
+1013
+1013
+1013
+1013
+1013
+1013
+1013
+1013
+
+2B:
+1013
+1013
+1013
+1013
+1013
+1013
+1013
+1013
+
+2C:
+0003                           MOV r,rm
+0003
+0003
+0003
+0003
+0003
+0003
+0003
+
+2D:
+0003
+0003
+0003
+0003
+0003
+0003
+0003
+0003
+
+2E:
+1019
+1019
+1019
+1019
+1019
+1019
+1019
+1019
+
+2F:
+1019
+1019
+1019
+1019
+1019
+1019
+1019
+1019
+
+30:                            MOV segreg,rmw  real
+0009            MOV ES,rmw  real
+082B illegal    MOV CS,rmw  real
+0009            MOV SS,rmw  real
+0009            MOV DS,rmw  real
+0009            MOV FS,rmw  real
+0009            MOV GS,rmw  real
+082B illegal
+082B illegal
+
+31:
+0
+0
+0
+0
+0
+0
+0
+0
+
+32:
+100F            MOV ES,rmw
+082B illegal    MOV CS,rmw
+100B            MOV SS,rmw
+100F            MOV DS,rmw
+100F            MOV FS,rmw
+100F            MOV GS,rmw
+082B illegal
+082B illegal
+
+33:
+0
+0
+0
+0
+0
+0
+0
+0
+
+34:                            MOV(ZX) rmv,segreg
+0007            MOV rmw,ES
+0007            MOV rmw,CS
+0007            MOV rmw,SS
+0007            MOV rmw,DS
+0007            MOV rmw,FS
+0007            MOV rmw,GS
+082B illegal
+082B illegal
+
+35:
+0
+0
+0
+0
+0
+0
+0
+0
+
+36:
+1017            MOV rmw,ES
+1017            MOV rmw,CS
+1017            MOV rmw,SS
+1017            MOV rmw,DS
+1017            MOV rmw,FS
+1017            MOV rmw,GS
+082B illegal
+082B illegal
+
+37:
+0
+0
+0
+0
+0
+0
+0
+0
+
+38:                            MOV segreg,rmw  protected
+0580            MOV ES,rmw  protected
+082B illegal    MOV CS,rmw  protected
+0585            MOV SS,rmw  protected
+0580            MOV DS,rmw  protected
+0580            MOV FS,rmw  protected
+0580            MOV GS,rmw  protected
+082B illegal
+082B illegal
+
+39:
+0
+0
+0
+0
+0
+0
+0
+0
+
+3A:
+100F            MOV ES,rmw  protected
+082B illegal    MOV CS,rmw  protected
+100B            MOV SS,rmw  protected
+100F            MOV DS,rmw  protected
+100F            MOV FS,rmw  protected
+100F            MOV GS,rmw  protected
+082B illegal
+082B illegal
+
+3B:
+0
+0
+0
+0
+0
+0
+0
+0
+
+3C:
+0                              unused?
+0
+0
+0
+0
+0
+082B illegal
+082B illegal
+
+3D:
+0
+0
+0
+0
+0
+0
+0
+0
+
+3E:
+0
+0
+0
+0
+0
+0
+082B illegal
+082B illegal
+
+3F:
+0
+0
+0
+0
+0
+0
+0
+0
+
+40:                            POP mv
+309F            POP rmv?
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+41:
+0
+0
+0
+0
+0
+0
+0
+0
+
+42:
+30AC            POP rmv?
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+43:
+0
+0
+0
+0
+0
+0
+0
+0
+
+44:                            MOV rm,i
+0005
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+45:
+0
+0
+0
+0
+0
+0
+0
+0
+
+46:
+1015
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+47:
+0
+0
+0
+0
+0
+0
+0
+0
+
+48:
+0                              MOV TRn,rd
+0
+0
+0
+0
+0
+0
+0
+
+49:
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+0391            TR4
+0391            TR5
+0391            TR6
+0391            TR7
+
+4A:
+0
+0
+0
+0
+0
+0
+0
+0
+
+4B:
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+0391            TR4
+0391            TR5
+0391            TR6
+0391            TR7
+
+4C:
+06B6                           ARPL rmw,rw  protected
+06B6
+06B6
+06B6
+06B6
+06B6
+06B6
+06B6
+
+4D:
+0
+0
+0
+0
+0
+0
+0
+0
+
+4E:
+16AA
+16AA
+16AA
+16AA
+16AA
+16AA
+16AA
+16AA
+
+4F:
+0
+0
+0
+0
+0
+0
+0
+0
+
+50:                            misc rmb
+0021            INC
+0021            DEC
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+51:
+0
+0
+0
+0
+0
+0
+0
+0
+
+52:
+904E            INC
+904E            DEC
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+53:
+0
+0
+0
+0
+0
+0
+0
+0
+
+54:                            misc rmv
+0021
+0021
+2079
+082B illegal
+006D
+082B illegal
+2086
+082B illegal
+
+55:
+0
+0
+0
+0
+0
+0
+0
+0
+
+56:
+904E            INC
+904E            DEC
+107C            CALL rmv
+12DA            CALL FAR m
+106F            JMP rmv
+12F5            JMP FAR m
+1081            PUSH rmv
+082B illegal
+
+57:
+0
+0
+0
+0
+0
+0
+0
+0
+
+58:                            math rm
+0025            TEST
+0025            TEST
+0021            NOT
+0021            NEG
+01A5            MUL
+01A5            IMUL
+01C7            DIV
+01D3            IDIV
+
+59:
+0
+0
+0
+0
+0
+0
+0
+0
+
+5A:
+1031            TEST
+1031            TEST
+904E            NOT
+904E            NEG
+11AF            MUL
+11AF            IMUL
+11CF            DIV
+11E1            IDIV
+
+5B:
+0
+0
+0
+0
+0
+0
+0
+0
+
+5C:
+0                              MOV rd,TRn
+0
+0
+0
+0
+0
+0
+0
+
+5D:
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+03B6            TR4
+03B6            TR5
+03B6            TR6
+03B6            TR7
+
+5E:
+0
+0
+0
+0
+0
+0
+0
+0
+
+5F:
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+03B6            TR4
+03B6            TR5
+03B6            TR6
+03B6            TR7
+
+60:                            rot rm,ib
+00F9
+00F9
+00E5
+00E5
+00F9
+00F9
+00F9
+00F9
+
+61:
+0
+0
+0
+0
+0
+0
+0
+0
+
+62:
+111E
+111E
+1108
+1108
+111E
+111E
+111E
+111E
+
+63:
+0
+0
+0
+0
+0
+0
+0
+0
+
+64:                            rot rm,1
+0105
+0105
+0105
+0105
+0105
+0105
+0105
+0105
+
+65:
+0
+0
+0
+0
+0
+0
+0
+0
+
+66:
+112A
+112A
+112A
+112A
+112A
+112A
+112A
+112A
+
+67:
+0
+0
+0
+0
+0
+0
+0
+0
+
+68:                            rot rm,CL
+00FF
+00FF
+00E9
+00E9
+00FF
+00FF
+00FF
+00FF
+
+69:
+0
+0
+0
+0
+0
+0
+0
+0
+
+6A:
+112D
+112D
+110C
+110C
+112D
+112D
+112D
+112D
+
+6B:
+0
+0
+0
+0
+0
+0
+0
+0
+
+6C:                            BT rv/m,rv
+0
+0
+0
+0
+0
+0
+0
+0
+
+6D:
+0131
+0131
+0131
+0131
+0131
+0131
+0131
+0131
+
+6E:
+0
+0
+0
+0
+0
+0
+0
+0
+
+6F:
+1134
+1134
+1134
+1134
+1134
+1134
+1134
+1134
+
+70:                            BT/BTS/BTR/BTC rv/m,ib
+0
+0
+0
+0
+0
+0
+0
+0
+
+71:
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+013F            TR4
+015A            TR5
+015A            TR6
+015A            TR7
+
+72:
+0
+0
+0
+0
+0
+0
+0
+0
+
+73:
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+1142            TR4
+9160            TR5
+9160            TR6
+9160            TR7
+
+74:                            BTS/BTR/BTC rv/m,rv
+0
+0
+0
+0
+0
+0
+0
+0
+
+75:
+0147
+0147
+0147
+0147
+0147
+0147
+0147
+0147
+
+76:
+0
+0
+0
+0
+0
+0
+0
+0
+
+77:
+914D
+914D
+914D
+914D
+914D
+914D
+914D
+914D
+
+78:                            LFS/LGS rv,m
+0
+0
+0
+0
+0
+0
+0
+0
+
+79:
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+7A:
+0
+0
+0
+0
+0
+0
+0
+0
+
+7B:
+10D0
+10D0
+10D0
+10D0
+10D0
+10D0
+10D0
+10D0
+
+7C:                            ARPL/SLDT/STR/LLT/LTR/VERR/VERW/LAR/LSL real mode
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+7D:
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+7E:
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+7F:
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+80:                            SLDT/STR/LLT/LTR/VERR/VERW rmw
+0
+0
+0
+0
+0
+0
+0
+0
+
+81:
+06E2
+06CF
+06D6
+06C3
+0703
+0709
+082B illegal
+082B illegal
+
+82:
+0
+0
+0
+0
+0
+0
+0
+0
+
+83:
+16E0
+16CD
+16D1
+16BE
+1700
+1706
+082B illegal
+082B illegal
+
+84:                            INC/DEC rv  SGDT/SIDT/LGDT/LIDT/SMSW/LMSW rmw
+0
+0
+0
+0
+0
+0
+0
+0
+
+85:
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+0358
+082B illegal
+034E
+082B illegal
+
+86:
+0
+0
+0
+0
+0
+0
+0
+0
+
+87:
+0340
+033D
+1332
+132E
+135A
+082B illegal
+1349
+082B illegal
+
+88:                            LAR rv,rmv  protected
+0
+0
+0
+0
+0
+0
+0
+0
+
+89:
+06E7
+06E7
+06E7
+06E7
+06E7
+06E7
+06E7
+06E7
+
+8A:
+0
+0
+0
+0
+0
+0
+0
+0
+
+8B:
+16E4
+16E4
+16E4
+16E4
+16E4
+16E4
+16E4
+16E4
+
+8C:                            LSL rv,rmv  alu A,i excluding CMP
+0
+0
+0
+0
+0
+0
+0
+0
+
+8D:
+06EC
+06EC
+06EC
+06EC
+06EC
+06EC
+06EC
+06EC
+
+8E:
+0
+0
+0
+0
+0
+0
+0
+0
+
+8F:
+16EA
+16EA
+16EA
+16EA
+16EA
+16EA
+16EA
+16EA
+
+90:                            IBTS rmv,eAX,CL,rv
+0
+0
+0
+0
+0
+0
+0
+0
+
+91:
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+92:
+0
+0
+0
+0
+0
+0
+0
+0
+
+93:
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+94:                            XBTS rv,rmv,eAX,CL   CMP/TEST A,i
+0
+0
+0
+0
+0
+0
+0
+0
+
+95:
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+96:
+0
+0
+0
+0
+0
+0
+0
+0
+
+97:
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+98:                            SHxD rmv,rv,ib
+0
+0
+0
+0
+0
+0
+0
+0
+
+99:
+00FC
+00FC
+00FC
+00FC
+00FC
+00FC
+00FC
+00FC
+
+9A:
+0
+0
+0
+0
+0
+0
+0
+0
+
+9B:
+1124
+1124
+1124
+1124
+1124
+1124
+1124
+1124
+
+9C:                            SHxD rmv,rv,CL
+0
+0
+0
+0
+0
+0
+0
+0
+
+9D:
+0102
+0102
+0102
+0102
+0102
+0102
+0102
+0102
+
+9E:
+0
+0
+0
+0
+0
+0
+0
+0
+
+9F:
+112F
+112F
+112F
+112F
+112F
+112F
+112F
+112F
+
+A0:                            ESC?
+04C1
+04C1
+04C1
+04C1
+04C1
+04C1
+04C1
+04C1
+
+A1:
+0
+0
+0
+0
+0
+0
+0
+0
+
+A2:
+14D7
+14D7
+14D7
+14D7
+14D7
+14D7
+14D7
+14D7
+
+A3:
+0
+0
+0
+0
+0
+0
+0
+0
+
+A4:                            ESC?
+04C1
+04C1
+04C1
+04C1
+04C1
+04C1
+04C1
+04C1
+
+A5:
+0
+0
+0
+0
+0
+0
+0
+0
+
+A6:
+14E0
+14E0
+14E0
+14E0
+14E0
+14E0
+14E0
+14E0
+
+A7:
+0
+0
+0
+0
+0
+0
+0
+0
+
+A8:                            ESC?
+04C1
+04C1
+04C1
+04C1
+04C1
+04C1
+04C1
+04C1
+
+A9:
+0
+0
+0
+0
+0
+0
+0
+0
+
+AA:
+14DB
+04C1
+1540
+1540
+145C
+04C1
+13F0
+03D9
+
+AB:
+0
+0
+0
+0
+0
+0
+0
+0
+
+AC:                            ESC?
+04C1
+04C1
+04C1
+04C1
+04C1
+04C1
+04C1
+04C1
+
+AD:
+0
+0
+0
+0
+0
+0
+0
+0
+
+AE:
+14D7
+04C1
+153C
+153C
+1459
+14DF
+13ED
+03D9
+
+AF:
+0
+0
+0
+0
+0
+0
+0
+0
+
+B0:                            ESC?
+04C1
+04C1
+04C1
+04C1
+03DA
+03DA
+03DA
+03DA
+
+B1:
+0
+0
+0
+0
+0
+0
+0
+0
+
+B2:
+14E0
+04C1
+1544
+1544
+14D3
+14DB
+1538
+1540
+
+B3:
+0
+0
+0
+0
+0
+0
+0
+0
+
+B4:                            SETcond rmb
+0
+0
+0
+0
+0
+0
+0
+0
+
+B5:
+003D
+003D
+003D
+003D
+003D
+003D
+003D
+003D
+
+B6:
+0
+0
+0
+0
+0
+0
+0
+0
+
+B7:
+1043
+1043
+1043
+1043
+1043
+1043
+1043
+1043
+
+B8:                            MOVZX/MOVSX r,rm  (16-bit?)
+0
+0
+0
+0
+0
+0
+0
+0
+
+B9:
+01E8
+01E8
+01E8
+01E8
+01E8
+01E8
+01E8
+01E8
+
+BA:
+0
+0
+0
+0
+0
+0
+0
+0
+
+BB:
+11EB
+11EB
+11EB
+11EB
+11EB
+11EB
+11EB
+11EB
+
+BC:                            MOVZX/MOVSX r,rm  (32-bit?)
+0
+0
+0
+0
+0
+0
+0
+0
+
+BD:
+01F0
+01F0
+01F0
+01F0
+01F0
+01F0
+01F0
+01F0
+
+BE:
+0
+0
+0
+0
+0
+0
+0
+0
+
+BF:
+11F3
+11F3
+11F3
+11F3
+11F3
+11F3
+11F3
+11F3
+
+C0:                            BSF rv,rmv
+0
+0
+0
+0
+0
+0
+0
+0
+
+C1:
+0168
+0168
+0168
+0168
+0168
+0168
+0168
+0168
+
+C2:
+0
+0
+0
+0
+0
+0
+0
+0
+
+C3:
+1177
+1177
+1177
+1177
+1177
+1177
+1177
+1177
+
+C4:                            BSR rv,rmv
+0
+0
+0
+0
+0
+0
+0
+0
+
+C5:
+017A
+017A
+017A
+017A
+017A
+017A
+017A
+017A
+
+C6:
+0
+0
+0
+0
+0
+0
+0
+0
+
+C7:
+1184
+1184
+1184
+1184
+1184
+1184
+1184
+1184
+
+C8:                            MOV CRn,rd
+0
+0
+0
+0
+0
+0
+0
+0
+
+C9:
+035C            CR0
+082B illegal
+0368            CR2
+036C            CR3
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+CA:
+0
+0
+0
+0
+0
+0
+0
+0
+
+CB:
+035C            CR0
+082B illegal
+0368            CR2
+036C            CR3
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+CC:                            MOV rd,CRn
+0
+0
+0
+0
+0
+0
+0
+0
+
+CD:
+0371            CR0
+082B illegal
+0377            CR2
+0379            CR3
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+CE:
+0
+0
+0
+0
+0
+0
+0
+0
+
+CF:
+0371            CR0
+082B illegal
+0377            CR2
+0379            CR3
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+D0:                            MOV DRn,rd
+0
+0
+0
+0
+0
+0
+0
+0
+
+D1:
+038A
+038A
+038A
+038A
+037B
+037F
+037B
+037F
+
+D2:
+0
+0
+0
+0
+0
+0
+0
+0
+
+D3:
+038A
+038A
+038A
+038A
+037B
+037F
+037B
+037F
+
+D4:                            MOV rd,DRn
+0
+0
+0
+0
+0
+0
+0
+0
+
+D5:
+03AE
+03AE
+03AE
+03AE
+03A6
+03AA
+03A6
+03AA
+
+D6:
+0
+0
+0
+0
+0
+0
+0
+0
+
+D7:
+03AE
+03AE
+03AE
+03AE
+03A6
+03AA
+03A6
+03AA
+
+D8:                            ESC?
+04C1
+04C1
+04C1
+04C1
+04C1
+04C1
+04C1
+04C1
+
+D9:
+0
+0
+0
+0
+0
+0
+0
+0
+
+DA:
+14DB
+14DB
+14DB
+14DB
+14DB
+14DB
+14DB
+14DB
+
+DB:
+0
+0
+0
+0
+0
+0
+0
+0
+
+DC:                            ESC?
+03CD
+03CD
+03CD
+03CD
+03CD
+03CD
+03CD
+03CD
+
+DD:
+0
+0
+0
+0
+0
+0
+0
+0
+
+DE:
+14D7
+04C1
+153C
+153C
+04C1
+14D3
+0
+1538
+
+DF:
+0
+0
+0
+0
+0
+0
+0
+0
+
+E0:                            LEA rv,m
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+E1:
+0
+0
+0
+0
+0
+0
+0
+0
+
+E2:
+10B9
+10B9
+10B9
+10B9
+10B9
+10B9
+10B9
+10B9
+
+E3:
+0
+0
+0
+0
+0
+0
+0
+0
+
+E4:                            LES
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+E5:
+0
+0
+0
+0
+0
+0
+0
+0
+
+E6:
+10C2
+10C2
+10C2
+10C2
+10C2
+10C2
+10C2
+10C2
+
+E7:
+0
+0
+0
+0
+0
+0
+0
+0
+
+E8:                            LDS
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+E9:
+0
+0
+0
+0
+0
+0
+0
+0
+
+EA:
+10BB
+10BB
+10BB
+10BB
+10BB
+10BB
+10BB
+10BB
+
+EB:
+0
+0
+0
+0
+0
+0
+0
+0
+
+EC:                            BOUND rv,m2v
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+ED:
+0
+0
+0
+0
+0
+0
+0
+0
+
+EE:
+1818
+1818
+1818
+1818
+1818
+1818
+1818
+1818
+
+EF:
+0
+0
+0
+0
+0
+0
+0
+0
+
+F0:                            LSS rv,m
+0
+0
+0
+0
+0
+0
+0
+0
+
+F1:
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+F2:
+0
+0
+0
+0
+0
+0
+0
+0
+
+F3:
+10C9
+10C9
+10C9
+10C9
+10C9
+10C9
+10C9
+10C9
+
+F4:                            unused?
+0849
+0849
+0849
+0849
+0849
+0849
+0849
+0849
+
+F5:
+0849
+0849
+0849
+0849
+0849
+0849
+0849
+0849
+
+F6:
+0849
+0849
+0849
+0849
+0849
+0849
+0849
+0849
+
+F7:
+0849
+0849
+0849
+0849
+0849
+0849
+0849
+0849
+
+F8:                            unused?
+0844
+0844
+0844
+0844
+0844
+0844
+0844
+0844
+
+F9:
+0844
+0844
+0844
+0844
+0844
+0844
+0844
+0844
+
+FA:
+0844
+0844
+0844
+0844
+0844
+0844
+0844
+0844
+
+FB:
+0844
+0844
+0844
+0844
+0844
+0844
+0844
+0844
+
+FC:                            unused?
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+FD:
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+FE:
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+
+FF:
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal
+082B illegal

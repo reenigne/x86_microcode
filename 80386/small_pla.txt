@@ -1,0 +1,139 @@
+abcdefg
+0101001 0011011 100000000001  801  OVERLONG_INST
+11010?1 0011011 100000101101  82d  HARDWARE_IRQ
+?0010?1 0011011 100000110110  836  NMI
+??011?1 0011011 100101010011  953  ICE_PIN
+??11??1 0011011 100101000001  941  BREAKPOINT
+
+???0??1 0011011 100100111111  93f  SINGLE_STEP         Trap flag
+??????* 0011010 100000100100  824  DIVIDE_ERROR
+??????? 1011010 100011101001  8e9  PAGE_FAULT
+??????? 0010110 100001010111  857  GENERAL_FAULT5
+??????? 0100010 100000111111  83f  DOUBLE_FAULT
+?????1? 0000000 100000111001  839  TRIPLE_FAULT
+
+abcdef h i
+010100 0 0 0011011 100000000001  801  OVERLONG_INST
+11010? 0 0 0011011 100000101101  82d  HARDWARE_IRQ
+?0010? 0 0 0011011 100000110110  836  NMI
+??011? 0 0 0011011 100101010011  953  ICE_PIN
+??11?? 0 0 0011011 100101000001  941  BREAKPOINT
+
+???0?? 0 0 0011011 100100111111  93f  SINGLE_STEP         Trap flag
+?????? 1 0 0011010 100000100100  824  DIVIDE_ERROR
+?????? 0 1 1011010 100011101001  8e9  PAGE_FAULT
+?????? 0 ? 0010110 100001010111  857  GENERAL_FAULT5
+?????? 0 ? 0100010 100000111111  83f  DOUBLE_FAULT
+?????1 0 ? 0000000 100000111001  839  TRIPLE_FAULT
+
+abcdef hj k
+010100 01 ? 0011011 100000000001  801  OVERLONG_INST
+11010? 01 ? 0011011 100000101101  82d  HARDWARE_IRQ
+?0010? 01 ? 0011011 100000110110  836  NMI
+??011? 01 ? 0011011 100101010011  953  ICE_PIN             Enter ICE mode via ICE# pin like SMI# pin?
+??11?? 01 ? 0011011 100101000001  941  BREAKPOINT          Like BREAKPOINT_SIGNAL but without BS      - comes in via small pla when DR0-DR3 are hit?
+
+???0?? 01 ? 0011011 100100111111  93f  SINGLE_STEP         Trap flag
+?????? 11 ? 0011010 100000100100  824  DIVIDE_ERROR
+?????? 00 0 1011010 100011101001  8e9  PAGE_FAULT
+?????? 00 ? 0010110 100001010111  857  GENERAL_FAULT5
+?????? 00 1 0100010 100000111111  83f  DOUBLE_FAULT
+?????1 00 ? 0000000 100000111001  839  TRIPLE_FAULT
+
+
+
+Missing - some handled by GENERAL_FAULT5 and some by OVERLONG_INST by process of elimination? (probably all by GENERAL_FAULT5 given priority)
+  Limit exceeded
+  Attempt to read unreadable segment
+  Attempt to write unwriteable segment
+
+
+
+7F9     DEF              UV X             | 801                            {-4B-}               2 04  r PUSHFd           56
+7F7    C EF              UV X             | 803                            {-4B-}               0 03    CLI/STI          52
+7FD  AB D F              UV X             | 807                            {-4B-}               0 37  r INT ib
+7FF  AB D F              UV X             | 809                            {-4B-}               3 22  r IRETd            10
+7FB  ABC                 UV X             | 802                            {-4B-}               3 05  r POPFd             7
+
+27F  ABC EF              UV X             | 283                            {-4B-}               0 09  p INS
+2A7  ABC EF              UV X             | 2AB                            {-4B-}               0 08  p OUTS              4
+272  ABCD                UV X             | 275                            {-4B-}               0 06  p IN A,ib
+29B  ABCD                UV X             | 29E                            {-4B-}               0 04  p OUT ib,A          3
+279  ABCD F              UV X             | 27B                            {-4B-}               0 07  p IN A,DX
+28A  ABCD F              UV X             | 28C                            {-4B-}               0 11  p REP INS
+2A1  ABCD F              UV X             | 2A3                            {-4B-}               0 05  p OUT DX,A
+2B1  ABCD F              UV X             | 2B3                            {-4B-}               0 10  p REP OUTS          2
+
+
+7 unique operands at 13 sites leading to 11 targets
+
+
+                     ba9876 012345
+10011011010010011011 100000 100000  801  OVERLONG_INST
+01011011000010011011 100000 101101  82d  HARDWARE_IRQ
+00101011000010011011 100000 011011  836  NMI
+00001010100010011011 100101 110010  953  ICE_PIN
+00000110000010011011 100101 100000  941  BREAKPOINT
+
+00000000000010011011 100100 111111  93f  SINGLE_STEP
+00000000000110011010 100000 001001  824  DIVIDE_ERROR
+00000000000001011010 100011 100101  8e9  INTERRUPT_X
+00000000000000010110 100001 111010  857  GENERAL_FAULT5
+00000000000000100010 100000 111111  83f  DOUBLE_FAULT
+00000000001000000000 100000 100111  839  TRIPLE_FAULT
+
+L  L  R    R    ? ? R  L  R
+ _  _ _  _ _  _     _   _ _  _ _
+BB CC EE F DD A K G HH JJ II K G
+10 01 10 1 10 1 0 0 10 01 10 1 1 100000 100000  801  OVERLONG_INST   A  ?                        lowest priority
+01 01 10 1 10 0 0 0 10 01 10 1 1 100000 101101  82d  HARDWARE_IRQ    B  L  INTR is active high
+00 10 10 1 10 0 0 0 10 01 10 1 1 100000 011011  836  NMI             C  L  NMI is active high
+00 00 10 1 01 0 0 0 10 01 10 1 1 100101 110010  953  ICE_PIN         D  R
+00 00 01 1 00 0 0 0 10 01 10 1 1 100101 100000  941  BREAKPOINT      E  R
+
+00 00 00 0 00 0 0 0 10 01 10 1 1 100100 111111  93f  SINGLE_STEP     F  ?
+00 00 00 0 00 0 0 1 10 01 10 1 0 100000 001001  824  DIVIDE_ERROR    G  ?
+00 00 00 0 00 0 0 0 01 01 10 1 0 100011 100101  8e9  PAGE_FAULT      H  R                                                 #PF
+00 00 00 0 00 0 0 0 00 01 01 1 0 100001 111010  857  ACCESS_VIOLATI  I  R
+00 00 00 0 00 0 0 0 00 10 00 1 0 100000 111111  83f  DOUBLE_FAULT    J  L                                                 #DF
+00 00 00 0 00 0 1 0 00 00 00 0 0 100000 100111  839  TRIPLE_FAULT    K  ?                        highest priority
+
+Column A would be all 0s so is omitted
+Column F would be 00000100000 - perhaps is performed by putting the input directly into the row activation for some reason?
+Columns K and G are split up from their complements, so we can't tell which one is L and which is R
+
+
+Table 9-2 in i386.pdf:
+
+HIGHEST Faults except debug faults                GHIJK
+        Trap instructions INTO, INT n, INT 3
+        Debug traps for this instruction          EF
+        Debug faults for next instruction         EF
+        NMI interrupt                             C
+LOWEST  INTR interrupt                            B
+
+Table 7-2. Priority Among Concurrent Events
+
+1 (Highest) Hardware Reset and Machine Checks
+  - RESET                                                                                                n/a
+  - Machine Check (#MC)                                                                                1? TRIPLE FAULT
+2 Trap on Task Switch
+  - T flag in TSS is set (#DB)                                                                           not via small pla
+3 External Hardware Interventions
+  - FLUSH                                                                                                n/a
+  - STOPCLK                                                                                              n/a
+  - SMI                                                                                                8 ICE_PIN
+  - INIT                                                                                                 n/a
+4 Traps on the Previous Instruction
+  - Trap-class Debug Exceptions (#DB due to TF flag set or data/I-O breakpoint)                        6 SINGLE_STEP  7 BREAKPOINT
+5 Nonmaskable Interrupts (NMI) 1                                                                       9 NMI
+6 Maskable Hardware Interrupts 1                                                                      10 HARDWARE_IRQ
+7 Fault-class Debug Exceptions (#DB due to instruction breakpoint)
+8 Faults from Fetching Next Instruction
+  - Code-Segment Limit Violation (#GP)                                                                 3?
+  - Code Page Fault (#PF)                                                                              4
+9 (Lowest) Faults from Decoding the Next Instruction
+  - Control protection exception due to missing ENDBRANCH at target of an indirect call or jump (#CP)    n/a
+  - Instruction length > 15 bytes (#GP)                                                               11 OVERLONG_INST
+  - Invalid Opcode (#UD)                                                                                 not via small pla
+  - Coprocessor Not Available (#NM)                                                                      not via small pla
