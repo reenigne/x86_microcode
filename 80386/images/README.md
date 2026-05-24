@@ -1,1 +1,1 @@
-A die photos by Ken Shirriff.
+All die photos by Ken Shirriff.
